@@ -2,11 +2,11 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IQueryable<Item>
+@model PaginationListViewModel
 
     <h1>Shopping Project</h1>
 
-    @foreach (Item p in Model)
+    @foreach (Item p in Model.Items)
     {
         <h3>@p.ItemName</h3>
 
@@ -16,4 +16,9 @@
             <li>@p.Amount</li>
         </ul>
     }
+
+    <a asp-controller="Home" asp-action="Index" asp-route-pageNum="1">1</a>
+    <a asp-controller="Home" asp-action="Index" asp-route-pageNum="2">2</a>
+    <a asp-controller="Home" asp-action="Index" asp-route-pageNum="3">3</a>
+
 
