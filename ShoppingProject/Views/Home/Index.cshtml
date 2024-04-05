@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model IQueryable<Item>
+
+    <h1>Shopping Project</h1>
+
+    @foreach (Item p in Model)
+    {
+        <h3>@p.ItemName</h3>
+
+        <ul>
+            <li>@p.ItemDescription</li>
+            <li>@p.Price</li>
+            <li>@p.Amount</li>
+        </ul>
+    }
+
