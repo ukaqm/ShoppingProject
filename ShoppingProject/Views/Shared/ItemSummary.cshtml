@@ -1,0 +1,22 @@
+﻿@using ShoppingProject.Infrastructure
+
+@model Item
+
+<div class="card m-1 p-1">
+    <div class="book-title">
+        <h3>@Model.ItemName</h3>
+        <h6>$@Model.Price</h6>
+    </div>
+
+    <ul>
+        <li>@Model.ItemDescription</li>
+        <li>@Model.Amount</li>
+    </ul>
+
+    <form id=@Model.ItemId method="post" asp-page="/Cart">
+        <input type="hidden" asp-for="ItemId"/>
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <button type="submit" class="btn-outline-success btn-sm float-end">Add to Cart</button>
+    </form>
+
+</div>

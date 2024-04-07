@@ -4,17 +4,22 @@
 
 @model PaginationListViewModel
 
+<style>
+    .book-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
+
     <h1>Shopping Project</h1>
 
     @foreach (Item p in Model.Items)
     {
-        <h3>@p.ItemName</h3>
-
-        <ul>
-            <li>@p.ItemDescription</li>
-            <li>@p.Price</li>
-            <li>@p.Amount</li>
-        </ul>
+        <partial name="ItemSummary" model="p"/>
     }
 
-<div page-model="@Model.PaginationInfo" page-action="Index"></div>
+<div page-model="@Model.PaginationInfo" page-action="Index" page-class-enabled="true" page-class="btn" 
+    page-class-normal="btn-outline-dark" page-class-selected="btn-primary" 
+    page-url-itemType="@Model.CurrentItemType" class="btn-group pull-right m-1"></div>

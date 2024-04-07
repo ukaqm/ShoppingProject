@@ -13,7 +13,7 @@ namespace ShoppingProject.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index(int pageNum)
+        public IActionResult Index(int pageNum, string? itemType)
         {
 
             int pageSize = 5;
@@ -21,6 +21,7 @@ namespace ShoppingProject.Controllers
             var FullObject = new PaginationListViewModel
             {
                 Items = _repo.Items
+                .Where(x => x.ItemName == itemType || itemType == null)
                 .OrderBy(x => x.ItemName)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
@@ -29,8 +30,11 @@ namespace ShoppingProject.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = _repo.Items.Count()
-                }
+                    TotalItems = itemType == null ? _repo.Items.Count() : _repo.Items.Where(x => x.ItemName == itemType).Count()
+                },
+
+                CurrentItemType = itemType
+
             };
             return View(FullObject);
         }
