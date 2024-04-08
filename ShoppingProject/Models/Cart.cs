@@ -4,7 +4,7 @@
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
-        public void AddItem(Item p, int quantity)
+        public virtual void AddItem(Item p, int quantity)
         {
             if (p.Amount > 0) 
             {
@@ -28,9 +28,9 @@
             }  
         }
 
-        public void RemoveLine(Item p) => Lines.RemoveAll(x => x.Item.ItemId == p.ItemId);
+        public virtual void RemoveLine(Item p) => Lines.RemoveAll(x => x.Item.ItemId == p.ItemId);
 
-        public void Clear() => Lines.Clear();
+        public virtual void Clear() => Lines.Clear();
 
         public decimal CalculateTotal() => Lines.Sum(x => x.Item.Price * x.Quantity);
 

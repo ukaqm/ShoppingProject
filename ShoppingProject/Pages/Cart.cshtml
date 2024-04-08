@@ -12,6 +12,7 @@
             <th>Quantity</th>
             <th class="text-right">Price</th>
             <th class="text-right">Subtotal</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,15 @@
                 <td class="text-center">@l.Quantity</td>
                 <td class="text-right">@l.Item.Price</td>
                 <td class="text-right">@((l.Quantity * l.Item.Price).ToString("c"))</td>
+                <td class="text-center">
+                    <form asp-page-handler="Remove" method="post">
+                        <input type="hidden" name="ItemId" value="@l.Item.ItemId"/>
+                        <input type="hidden" name="returnUrl" value="@Model?.ReturnUrl." />
+                        <button type="submit" class="btn btn-sm btn btn-danger">
+                            Remove
+                        </button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

@@ -9,17 +9,20 @@ namespace ShoppingProject.Pages
     {
         private IShoppingRepository _repo;
 
-        public CartModel(IShoppingRepository temp)
+        public Cart Cart { get; set; }
+
+        public CartModel(IShoppingRepository temp, Cart cartService)
         {
             _repo = temp;
+            Cart = cartService;
         }
-        public Cart? Cart { get; set; }
+        
         public string ReturnUrl { get; set; } = "/";
 
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+            //Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
         public IActionResult OnPost(int ItemId, string returnUrl) 
         {
@@ -27,11 +30,18 @@ namespace ShoppingProject.Pages
                 .FirstOrDefault(x => x.ItemId == ItemId);
             if (p != null)
             {
-                Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+                //Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
                 Cart.AddItem(p, 1);
-                HttpContext.Session.SetJson("cart", Cart);
+                //HttpContext.Session.SetJson("cart", Cart);
             }
             return RedirectToPage (new {returnUrl = returnUrl});
+        }
+
+        public IActionResult OnPostRemove (int itemId, string returnUrl) 
+        {
+            Cart.RemoveLine(Cart.Lines.First(x => x.Item.ItemId == itemId).Item);
+
+            return RedirectToPage(new { returnUrl = returnUrl });
         }
     }
 }
